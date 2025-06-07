@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  producer:
+    build:
+      context: ./kafka_producer
+    environment:
+      - KAFKA_SERVERS=kafka-0:9092,kafka-1:9092,kafka-2:9092
+      - PRODUCER_TIMEOUT=100
+    networks:
+      - kafka_net
+
+  consumer:
+    build:
+      context: ./kafka_consumer
+    environment:
+      - KAFKA_SERVERS=kafka-0:9092,kafka-1:9092,kafka-2:9092
+      - CONSUMER_TIMEOUT=100
+    networks:
+      - kafka_net
+    deploy:
+      mode: replicated
+      replicas: 2      
+
+  consumer_batch:
+    build:
+      context: ./kafka_consumer_batch
+    environment:
+      - KAFKA_SERVERS=kafka-0:9092,kafka-1:9092,kafka-2:9092
+      - CONSUMER_TIMEOUT=5000
+    networks:
+      - kafka_net
+    deploy:
+      mode: replicated
+      replicas: 2      
+    
+networks:
+  kafka_net:
+    name: my_net

@@ -1,0 +1,9 @@
+Команда для создания топика с 3 партициями и 2 репликами:
+bin/kafka-topics.sh --create --topic test-topic --bootstrap-server localhost:9092 --partitions 3 --replication-factor 2
+
+Подробная информация о созданном топике: 
+$ bin/kafka-topics.sh --describe --topic test-topic --bootstrap-server localhost:9092
+Topic: test-topic       TopicId: HoZlqc8BRLKpYBoBp6fM0g PartitionCount: 3       ReplicationFactor: 2    Configs: min.insync.replicas=2
+        Topic: test-topic       Partition: 0    Leader: 2       Replicas: 2,0   Isr: 2,0
+        Topic: test-topic       Partition: 1    Leader: 0       Replicas: 0,1   Isr: 0,1
+        Topic: test-topic       Partition: 2    Leader: 1       Replicas: 1,2   Isr: 1,2
